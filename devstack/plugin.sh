@@ -3,6 +3,7 @@
 # Dependencies:
 #
 # - ``functions`` file
+# - ``cinder`` configurations
 # - ``SHEEPDOG_DATA_DIR`` must be defined
 
 # ``stack.sh`` calls the entry points in this order (via ``extras.d/60-sheepdog.sh``):
@@ -92,6 +93,13 @@ function start_sheepdog {
     sleep 3
 
     sudo dog cluster format -c 1
+}
+
+# configure_cinder_backend_sheepdog - Configure Cinder for Sheepdog backends
+function configure_cinder_backend_sheepdog {
+    local be_name=$1
+    iniset $CINDER_CONF $be_name volume_backend_name $be_name
+    iniset $CINDER_CONF $be_name volume_driver "cinder.volume.drivers.sheepdog.SheepdogDriver"
 }
 
 if [[ "$1" == "source" ]]; then
