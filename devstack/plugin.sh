@@ -25,8 +25,8 @@ SHEEPDOG_DISK_IMAGE=${SHEEPDOG_DATA_DIR}/sheepdog.img
 # DevStack will create a loop-back disk formatted as XFS to store the
 # Sheepdog data. Set ``SHEEPDOG_LOOPBACK_DISK_SIZE`` to the disk size in
 # kilobytes.
-# Default is 4 gigabyte.
-SHEEPDOG_LOOPBACK_DISK_SIZE_DEFAULT=4G
+# Default is 8 gigabyte.
+SHEEPDOG_LOOPBACK_DISK_SIZE_DEFAULT=8G
 SHEEPDOG_LOOPBACK_DISK_SIZE=${SHEEPDOG_LOOPBACK_DISK_SIZE:-$SHEEPDOG_LOOPBACK_DISK_SIZE_DEFAULT}
 
 # Functions
