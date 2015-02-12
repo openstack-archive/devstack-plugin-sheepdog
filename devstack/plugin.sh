@@ -4,7 +4,7 @@
 #
 # - ``functions`` file
 # - ``cinder`` configurations
-# - ``SHEEPDOG_DATA_DIR`` must be defined
+# - ``SHEEPDOG_DATA_DIR`` or ``DATA_DIR`` must be defined
 
 # ``stack.sh`` calls the entry points in this order (via ``extras.d/60-sheepdog.sh``):
 #
@@ -20,8 +20,8 @@
 
 # Set ``SHEEPDOG_DATA_DIR`` to the location of Sheepdog drives and objects.
 # Default is the common DevStack data directory.
-SHEEPDOG_DATA_DIR=${SHEEPDOG_DATA_DIR:-/var/lib/sheepdog}
-SHEEPDOG_DISK_IMAGE=${SHEEPDOG_DATA_DIR}/sheepdog.img
+SHEEPDOG_DATA_DIR=${SHEEPDOG_DATA_DIR:-${DATA_DIR}/sheepdog}
+SHEEPDOG_DISK_IMAGE=${SHEEPDOG_DATA_DIR}/drives/images/sheepdog.img
 
 # DevStack will create a loop-back disk formatted as XFS to store the
 # Sheepdog data. Set ``SHEEPDOG_LOOPBACK_DISK_SIZE`` to the disk size in
