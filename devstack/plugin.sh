@@ -46,8 +46,7 @@ function check_os_support_sheepdog {
 
 # stop_sheepdog() - Stop running processes (non-screen)
 function stop_sheepdog {
-    sudo pkill -f sheep
-    sleep 3
+    stop_process sheepdog
 
     if egrep -q ${SHEEPDOG_DATA_DIR} /proc/mounts; then
         sudo umount ${SHEEPDOG_DATA_DIR}
@@ -69,6 +68,7 @@ function cleanup_sheepdog {
 function configure_sheepdog {
     # create a backing file disk
     create_disk ${SHEEPDOG_DISK_IMAGE} ${SHEEPDOG_DATA_DIR} ${SHEEPDOG_LOOPBACK_DISK_SIZE}
+    sudo chown -R ${STACK_USER}: ${SHEEPDOG_DATA_DIR}
 }
 
 # install_sheepdog() - Collect source and prepare
@@ -84,15 +84,10 @@ function install_sheepdog {
 
 # start_sheepdog() - Start running processes, including screen
 function start_sheepdog {
-    # clean up from previous (possibly aborted) runs
-    # make sure to kill all sheepdog processes first
-    sudo pkill -f sheep || true
+    run_process sheepdog "sheep -f -o -l 7 -c local ${SHEEPDOG_DATA_DIR}"
     sleep 3
 
-    sudo sheep -l 7 -c local ${SHEEPDOG_DATA_DIR}
-    sleep 3
-
-    sudo dog cluster format -c 1
+    dog cluster format -c 1
 }
 
 # configure_cinder_backend_sheepdog - Configure Cinder for Sheepdog backends
