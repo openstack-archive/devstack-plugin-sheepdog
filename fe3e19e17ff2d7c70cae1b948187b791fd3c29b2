@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+2: MORITA Kazutaka <morita.kazutaka@gmail.com>
+Workflow+1: MORITA Kazutaka <morita.kazutaka@gmail.com>
+Code-Review+1: Takashi Kajinami <kajinamit@nttdata.co.jp>
+Code-Review+1: YAMADA Hideki <yamada.hideki@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 13 Feb 2015 17:20:27 +0000
+Reviewed-on: https://review.openstack.org/155495
+Project: stackforge/devstack-plugin-sheepdog
+Branch: refs/heads/master
