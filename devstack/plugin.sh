@@ -110,10 +110,12 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 
     # We need to have Sheepdog started before the main OpenStack components.
     start_sheepdog
+    patch -d /opt/stack/cinder/ -p1 -N < $(readlink -f $(dirname ${BASH_SOURCE:-$0})/..)/sheepdog.diff
 fi
 
 if [[ "$1" == "unstack" ]]; then
     stop_sheepdog
+    patch -d /opt/stack/cinder/ -p1 -R -N < $(readlink -f $(dirname ${BASH_SOURCE:-$0})/..)/sheepdog.diff
 fi
 
 if [[ "$1" == "clean" ]]; then
