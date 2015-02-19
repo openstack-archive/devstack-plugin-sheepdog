@@ -30,6 +30,9 @@ SHEEPDOG_DISK_IMAGE=${SHEEPDOG_DATA_DIR}/drives/images/sheepdog.img
 SHEEPDOG_LOOPBACK_DISK_SIZE_DEFAULT=8G
 SHEEPDOG_LOOPBACK_DISK_SIZE=${SHEEPDOG_LOOPBACK_DISK_SIZE:-$SHEEPDOG_LOOPBACK_DISK_SIZE_DEFAULT}
 
+# Set a patch to apply to cinder.
+SHEEPDOG_PATCH=$(readlink -f $(dirname ${BASH_SOURCE:-$0}))/sheepdog.diff
+
 # Functions
 # ------------
 
@@ -110,10 +113,12 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 
     # We need to have Sheepdog started before the main OpenStack components.
     start_sheepdog
+    patch -d $DEST/cinder/ -p1 -N < $SHEEPDOG_PATCH
 fi
 
 if [[ "$1" == "unstack" ]]; then
     stop_sheepdog
+    patch -d $DEST/cinder/ -p1 -R -N < $SHEEPDOG_PATCH
 fi
 
 if [[ "$1" == "clean" ]]; then
