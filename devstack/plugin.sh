@@ -110,6 +110,20 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 
     # We need to have Sheepdog started before the main OpenStack components.
     start_sheepdog
+    cd $DEST/cinder
+    git config user.email "you@example.com"
+    git config user.name "Your Name"
+    git fetch https://review.openstack.org/openstack/cinder refs/changes/56/159856/6
+    git cherry-pick FETCH_HEAD || \
+        (git cherry-pick --abort && git cherry-pick --strategy=recursive -Xtheirs FETCH_HEAD)
+    git fetch https://review.openstack.org/openstack/cinder refs/changes/00/161400/3
+    git cherry-pick FETCH_HEAD || \
+        (git cherry-pick --abort && git cherry-pick --strategy=recursive -Xtheirs FETCH_HEAD)
+    git fetch https://review.openstack.org/openstack/cinder refs/changes/27/162927/4
+    git cherry-pick FETCH_HEAD || \
+        (git cherry-pick --abort && git cherry-pick --strategy=recursive -Xtheirs FETCH_HEAD)
+    git log -3
+    cd -
 fi
 
 if [[ "$1" == "unstack" ]]; then
