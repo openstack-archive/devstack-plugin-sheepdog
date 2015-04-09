@@ -84,7 +84,7 @@ function install_sheepdog {
 
 # start_sheepdog() - Start running processes, including screen
 function start_sheepdog {
-    run_process sheepdog "sheep -f -o -l 7 -c local ${SHEEPDOG_DATA_DIR}"
+    run_process sheepdog "sheep -f -o -l 7 -c local -n ${SHEEPDOG_DATA_DIR}"
     sleep 3
 
     dog cluster format -c 1
