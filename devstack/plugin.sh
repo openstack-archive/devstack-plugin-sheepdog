@@ -97,6 +97,13 @@ function configure_cinder_backend_sheepdog {
     iniset $CINDER_CONF $be_name volume_driver "cinder.volume.drivers.sheepdog.SheepdogDriver"
 }
 
+function configure_sheepdog_glance {
+    iniset $GLANCE_API_CONF DEFAULT show_image_direct_url true
+    iniset $GLANCE_API_CONF sheepdog default_store sheepdog
+    iniset $GLANCE_API_CONF sheepdog stores file,http,sheepdog
+    iniset $GLANCE_API_CONF sheepdog sheepdog_store_address 127.0.0.1
+}
+
 if [[ "$1" == "source" ]]; then
     # Initial source
     source $TOP_DIR/lib/sheepdog
@@ -107,6 +114,7 @@ elif [[ "$1" == "stack" && "$2" == "install" ]]; then
 elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
     echo_summary "Configuring Sheepdog"
     configure_sheepdog
+    configure_sheepdog_glance
 
     # We need to have Sheepdog started before the main OpenStack components.
     start_sheepdog
