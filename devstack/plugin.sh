@@ -35,8 +35,8 @@ SHEEPDOG_LOOPBACK_DISK_SIZE=${SHEEPDOG_LOOPBACK_DISK_SIZE:-$SHEEPDOG_LOOPBACK_DI
 
 # check_os_support_sheepdog() - Check if the operating system provides a decent version of Sheepdog
 function check_os_support_sheepdog {
-    if [[ ! ${DISTRO} =~ (trusty) ]]; then
-        echo "WARNING: your distro $DISTRO does not provide (at least) the Firefly release. Please use Ubuntu Trusty"
+    if [[ ! ${DISTRO} =~ (trusty) && ! ${DISTRO} =~ (xenial) ]]; then
+        echo "WARNING: your distro $DISTRO does not provide (at least) the Firefly release. Please use Ubuntu Trusty or Xenial."
         if [[ "$FORCE_SHEEPDOG_INSTALL" != "yes" ]]; then
             die $LINENO "If you wish to install Sheepdog on this distribution anyway run with FORCE_SHEEPDOG_INSTALL=yes"
         fi
@@ -73,12 +73,12 @@ function configure_sheepdog {
 
 # install_sheepdog() - Collect source and prepare
 function install_sheepdog {
-    if [[ ${os_CODENAME} =~ trusty ]]; then
+    if [[ ${os_CODENAME} =~ trusty || ${os_CODENAME} =~ xenial ]]; then
         NO_UPDATE_REPOS=False
         install_package sheepdog
         install_package xfsprogs
     else
-        exit_distro_not_supported "Sheepdog since your distro doesn't provide (at least) the Firefly release. Please use Ubuntu Trusty."
+        exit_distro_not_supported "Sheepdog since your distro doesn't provide (at least) the Firefly release. Please use Ubuntu Trusty or Xenial."
     fi
 }
 
