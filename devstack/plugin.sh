@@ -102,6 +102,11 @@ function configure_cinder_backend_sheepdog {
     local be_name=$1
     iniset $CINDER_CONF $be_name volume_backend_name $be_name
     iniset $CINDER_CONF $be_name volume_driver "cinder.volume.drivers.sheepdog.SheepdogDriver"
+
+    # NOTE(yamada-h):
+    # Sheepdog driver is marked as unsupported at Jan 2017.
+    # We will remove this config after the driver is supported.
+    iniset $CINDER_CONF $be_name enable_unsupported_driver true
 }
 
 function configure_sheepdog_glance {
