@@ -130,6 +130,10 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 
     # We need to have Sheepdog started before the main OpenStack components.
     start_sheepdog
+elif [[ "$1" == "stack" && "$2" == "test-config" ]]; then
+    if is_service_enabled tempest; then
+        iniset $TEMPEST_CONFIG compute-feature-enabled swap_volume False
+    fi
 fi
 
 if [[ "$1" == "unstack" ]]; then
