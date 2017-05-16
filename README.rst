@@ -8,6 +8,6 @@
 
      cat > local.conf
      [[local|localrc]]
-     enable_plugin sheepdog https://github.com/stackforge/devstack-plugin-sheepdog
+     enable_plugin sheepdog https://github.com/openstack/devstack-plugin-sheepdog.git
 
 3. run ``stack.sh``
