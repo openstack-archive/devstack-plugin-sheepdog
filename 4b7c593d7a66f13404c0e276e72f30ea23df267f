@@ -1,0 +1,8 @@
+Code-Review+2: YAMADA Hideki <yamada.hideki@lab.ntt.co.jp>
+Workflow+1: YAMADA Hideki <yamada.hideki@lab.ntt.co.jp>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 17 May 2017 06:28:35 +0000
+Reviewed-on: https://review.openstack.org/465400
+Project: openstack/devstack-plugin-sheepdog
+Branch: refs/heads/master
